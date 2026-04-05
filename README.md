@@ -8,7 +8,7 @@ Tailored for frontend engineers leveling up from TS fundamentals to interview-re
 
 - [x] 0. Prerequisites (Assumed)
 - [x] 1. Deep Mental Model of TypeScript
-- [ ] 2. Advanced Type System Foundations
+- [x] 2. Advanced Type System Foundations
 - [ ] 3. Generics — Beyond Basics
 - [ ] 4. Conditional Types (Core of Advanced TS)
 - [ ] 5. Mapped Types & Key Transformations
