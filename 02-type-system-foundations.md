@@ -87,15 +87,30 @@ const animals: Animal[] = dogs; // valid
 
 ### Contravariance — flipped direction
 
-Function parameters are contravariant. A function that handles `Animal` can stand in for one that handles `Dog` — not the other way around:
+Function parameters are contravariant. The question is: can I use function A in place of function B?
+
+```ts
+const handleAnimal = (a: Animal) => a.breathe();
+const handleDog = (d: Dog) => d.bark();
+```
+
+**Scenario 1:** Something expects a `HandleDog`. Can I give it `handleAnimal`?
+
+**Yes.** It will call the function with a `Dog`. `handleAnimal` can handle any `Animal`, and a `Dog` is an `Animal` — safe.
+
+**Scenario 2:** Something expects a `HandleAnimal`. Can I give it `handleDog`?
+
+**No.** It might call the function with a `Cat`. `handleDog` tries to call `.bark()` on it — `Cat` has no `bark()` — runtime crash.
 
 ```ts
 type HandleAnimal = (a: Animal) => void;
 type HandleDog = (d: Dog) => void;
 
 const handleAnimal: HandleAnimal = (a) => a.breathe();
-const handleDog: HandleDog = handleAnimal; // valid — can handle any animal, including dogs
+const handleDog: HandleDog = handleAnimal; // valid — more general can replace more specific
 ```
+
+A function with a **wider/more general** parameter can replace a function with a **narrower/more specific** parameter — never the other way. This feels backwards from value subtyping — that's exactly what contravariance means, the direction flips for function parameters.
 
 ### Bivariance — both directions (default for methods)
 
